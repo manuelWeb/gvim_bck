@@ -1,69 +1,69 @@
-" write oldopenvimfile~
-set nowritebackup
-set nobackup
+set nocompatible
+" Activation de pathogen > !important @_vimrc
 
-" open each buffer in tab > don't run
-:tab all
+" Change la police
+set guifont=Consolas:h13
+set antialias
 
-" pathogen autoload
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-
-" autocomplete
-ino " ""<left>
-ino ' ''<left>
-ino ( ()<left>
-ino [ []<left>
-ino { {}<left>
-ino {<CR> {<CR>}<ESC>O
-
+"Utilise la version sombre de Solarized
+colorscheme solarized
 " colorscheme desert
-colorscheme desert
+set background=dark
 
-set tabstop=2       " number of visual spaces per TAB
-set softtabstop=2   " number of spaces in tab when editing
-set expandtab       " tabs are spaces
-filetype indent on  " load filetype-specific indent files
 
-set wildmenu        " visual autocomplete for command menu
-set showmatch       " highlight matching [{()}]
-
-" searching
-set incsearch       " search as characters are entered
-set hlsearch        " highlight matches
-set encoding=utf-8
+syntax enable       " Active la coloration syntaxique
+syntax on           " turn syntax highlighting on by default
+set hlsearch
+" set encoding=utf-8
+set ai                          " set auto-indenting on for programming
+set showmatch                   " automatically show matching brackets. works like it does in bbedit.
 set vb                          " turn on the "visual bell" - which is much quieter than the "audio blink"
 set ruler                       " show the cursor position all the time
 set laststatus=2                " make the last line where the status is two lines deep so you can see status always
 set backspace=indent,eol,start  " make that backspace key work the way it should
-set nocompatible                " vi compatible is LAME
-set background=dark             " Use colours that work well on a dark background (Console is usually black)
 set showmode                    " show the current mode
+
+" Active les comportements specifiques aux types de fichiers comme
+" la syntaxe et l'indentation
+filetype on
+filetype plugin on
+filetype indent on
+" taille indentation
+:set shiftwidth=2
+:set autoindent
+:set smartindent
+"setlocal tabstop=2
+" afficher les num de ligne
 set number
+" Activation de NERDTree au lancement de vim
+autocmd vimenter * NERDTree
 
-if has('gui_running')
-  set nowritebackup
-  set nobackup
-  set guifont=DejaVu_Sans_Mono:h10:cANSI
-endif
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
 
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
 
-" movement > move vertically by visual line
-nnoremap j gj
-nnoremap k gk
-
-" move to beginning/end of line
-nnoremap B ^
-nnoremap E $
-" $/^ doesn't do anything
-" nnoremap $ <nop>
-" nnoremap ^ <nop>
-
-" highlight last inserted text
-nnoremap gV `[v`]
-
-" open in browser
-" nnoremap <silent> <F5> :!start file://C:/Users/<your username here>/AppData/Local/Google/Chrome/Application/chrome.exe %:p<CR>
-nnoremap <silent> <F12> :!start C:/Users/mdevries/AppData/Local/Google/Chrome/Application/chrome.exe %:p<CR>
-nnoremap <silent> <F11> :!start "C:/Program Files (x86)/Mozilla Firefox/firefox.exe" %:p<CR>
