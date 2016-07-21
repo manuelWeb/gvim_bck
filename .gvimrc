@@ -1,3 +1,4 @@
+set shell=bash
 set nocompatible
 " Activation de pathogen > !important @_vimrc
 
@@ -5,16 +6,19 @@ set nocompatible
 set guifont=Consolas:h13
 set antialias
 
+" multi cursor selection
+set selection=inclusive
+
+" open file in new tab
+:au BufAdd,BufNewFile * nested tab sball
+
 "Utilise la version sombre de Solarized
+colorscheme distinguished
 colorscheme solarized
 " colorscheme desert
 set background=dark
 
-
-syntax enable       " Active la coloration syntaxique
-syntax on           " turn syntax highlighting on by default
 set hlsearch
-" set encoding=utf-8
 set ai                          " set auto-indenting on for programming
 set showmatch                   " automatically show matching brackets. works like it does in bbedit.
 set vb                          " turn on the "visual bell" - which is much quieter than the "audio blink"
@@ -35,8 +39,9 @@ filetype indent on
 "setlocal tabstop=2
 " afficher les num de ligne
 set number
-" Activation de NERDTree au lancement de vim
-autocmd vimenter * NERDTree
+
+" Activation lancement de vim
+" autocmd vimenter * NERDTree
 
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -67,3 +72,8 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
+" prevent backup
+set nobackup
+set nowritebackup
+" no swap files
+set noswapfile
