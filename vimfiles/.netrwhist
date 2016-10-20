@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='C:\Users\mdevries\Desktop'
+let g:netrw_dirhist_2='C:/Users/mdevries/Desktop/optimiz'
+let g:netrw_dirhist_3='C:\Users\mdevries\Desktop'
+let g:netrw_dirhist_4='C:\Users\mdevries\Pictures\tl\newsLetter\cata\1016\IC'
+let g:netrw_dirhist_5='C:\Users\mdevries\Pictures\TL\evnt\first\1016\TH15_soupes\code\evt\evtSrc'

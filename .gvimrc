@@ -1,12 +1,19 @@
-set shell=bash
+" set shell=bash
+" set switchbuf=usetab
+nnoremap <F8> :sbnext<CR>
+nnoremap <S-F8> :sbprevious<CR>
+
 set nocompatible
 " Activation de pathogen > !important @_vimrc
 
 " Change la police
 set guifont=Consolas:h13
 set antialias
+" set encoding=utf-8
+" set fileencodings=utf-8
+" set termencoding=utf-8
 
-" multi cursor selection
+" multi cursor selection default is set selection=exclusive
 set selection=inclusive
 
 " open file in new tab
@@ -77,3 +84,23 @@ set nobackup
 set nowritebackup
 " no swap files
 set noswapfile
+
+" slim highlight
+autocmd BufNewFile,BufRead *.slim set ft=slim
+" NEERDtree close if only NEERDtree is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" shortkey 
+" NEERDtree
+map <C-nt> :NERDTreeToggle<CR>
+" dico
+:setlocal spell spelllang=fr
+" no blank line on close
+autocmd FileType * setlocal noeol binary
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" vim-clear-last-search-highlighting
+nnoremap <esc> :noh<return><esc>
